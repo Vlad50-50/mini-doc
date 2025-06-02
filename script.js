@@ -279,6 +279,8 @@ const data = [
 const input = document.getElementById("search-container");
 const output = document.getElementById("founded-elements");
 const totalFound = document.getElementById("total_found");
+const checkboxes = document.querySelectorAll('#filter-container input[type="radio"]');
+console.log(checkboxes);
 
 //const найденные = массив.filter(строка => строка.includes(слово));
 //const массив = текст.split(" ");
@@ -290,12 +292,28 @@ const totalFound = document.getElementById("total_found");
 console.log(data);
 
 function search(exemp) {
+  console.clear();
+  let type_search;
+  for (let i = 0; i < checkboxes.length; i++) {
+    const cb = checkboxes[i];
+    console.log(cb.checked);
+    if(cb.checked) {
+      if (cb.value == "des") type_search = "description";
+      if (cb.value == "name") type_search = "name";
+      if (cb.value == "head") type_search = "header";
+      if (cb.value == "arg") type_search = "arguments";
+      break;
+    }
+  }
+  console.log(type_search);
+  
+
   output.innerHTML = "";
   console.log("Searching");
   let sucess = 0;
   for (i = 0; i < data.length; ++i) {
-    if (data[i].description.includes(exemp)) {
-      console.log(data[i].description);
+    if (data[i][type_search].includes(exemp)) {
+      console.log(data[i][type_search]);
       found_elem_render(data[i]);
       ++sucess;
       totalFound.innerHTML = sucess;
@@ -303,15 +321,15 @@ function search(exemp) {
   }
   console.log(sucess);
   if (sucess != 0) {
-    output.innerHTML +=
-    `<thead>
+    output.innerHTML +=`
+    <thead>
             <tr>
                 <th>name</th>
                 <th>arg</th>
                 <th>header</th>
                 <th>descript</th>
             </tr>
-        </thead>`;
+    </thead>`;
   }
   else {
     output.innerHTML = `<h2 class = "notFound">Not Found</h2>`;
@@ -340,6 +358,7 @@ window.addEventListener('keydown', (event) => {
   }
 }
 );
+
 document.getElementById("search-btn").addEventListener('click', () => {
   if (input.value != "" && input.value != " ") {
     search(input.value);

@@ -10,14 +10,20 @@
 
 <body>
     <nav>
-        <input type="text" id="search-container" class="search-container" placeholder="Search by description">
+        <input type="text" id="search-container" class="search-container" placeholder="Search">
+        Search by:
+        <div id="filter-container">
+            <input type="radio" name="options" class="filter-checkbox" value="des" checked> Description
+            <input type="radio" name="options" class="filter-checkbox" value="name"> Name
+            <input type="radio" name="options" class="filter-checkbox" value="arg"> Arguments
+            <input type="radio" name="options" class="filter-checkbox" value="head"> Header
+        </div>
         <button id="search-btn">Search</button>
+        <hr>
+        Total found:
         <div id="total_found">0</div>
-        
     </nav>
-
     <hr>
-    
 
     <table id="founded-elements"></table>
 
